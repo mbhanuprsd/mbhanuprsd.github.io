@@ -32,3 +32,31 @@ ul.nav {
 .btn-lg {
 	font-size: 36px;
 }
+
+.emphasis {
+	color: green;
+	font-size: 20px;
+}
+
+.homepage {
+	text-align: center;
+}
+
+.homepage h2, .homepage h3 {
+	color: #e74c3c;
+	font-family: 'Arvo', courier, serif;
+	text-transform: uppercase;
+}
+
+.homepage h2 {
+	font-size: 30px;
+}
+
+.homepage h3 {
+	font-size: 26px;
+}
+
+.homepage p {
+	font-weight: 300;
+	font-size: 21px;
+}
