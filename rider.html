@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Rider Game
+	</title>
+</head>
+<body>
+<canvas id="gameCanvas" width="400" height="800" tabindex="1"></canvas>
+
+<script>
+var canvas;
+var canvasContext;
+var startRoad = 0;
+
+var carPosX = 0;
+var carPosY = 0;
+const CAR_WIDTH = 50;
+const CAR_HEIGHT = 80;
+
+var car;
+
+const LEFT_KEY = 37;
+const RIGHT_KEY = 39;
+
+window.onload = function(){
+	canvas = document.getElementById("gameCanvas");
+	canvasContext = canvas.getContext("2d");
+
+	var framesPerSecond = 30;
+	car = new Image();
+	car.onload = function() {
+		setInterval(updateGame, 1000/framesPerSecond);
+	}
+	car.src = "images/car.png";
+	carPosX = canvas.width/4;
+	carPosY = 4*canvas.height/5;
+
+	canvas.addEventListener("keydown", handleKeyEvent);
+}
+
+function handleKeyEvent(evt) {
+	evt = evt || window.event;
+	switch(evt.keyCode) {
+		case LEFT_KEY:
+			if (carPosX > 0) {
+				carPosX -= CAR_WIDTH/8;
+			}
+			break;
+		case RIGHT_KEY:
+			if (carPosX < (canvas.width - CAR_WIDTH)) {
+				carPosX += CAR_WIDTH/8;
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+function updateGame() {
+	drawGame();
+	gameLogic();
+}
+
+function drawGame() {
+	// Draw canvas
+	colorRect(0, 0, canvas.width, canvas.height, "black");
+
+	// Draw road
+	drawRoad();
+
+	// Draw car
+	canvasContext.drawImage(car, carPosX, carPosY, CAR_WIDTH, CAR_HEIGHT);
+	
+}
+
+function drawRoad() {
+	if (startRoad >= 40) {
+		startRoad = 0;
+	} else {
+		startRoad++;
+	}
+
+	for (var i = startRoad - 40; i <= canvas.height; i+=40) {
+		colorRect(canvas.width/2 - 4, i, 8, 30, "white");
+	}
+}
+
+function gameLogic(){
+
+}
+
+function colorRect(leftX, topY, width, height, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX, topY, width, height);
+}
+
+</script>
+</body>
+</html>
