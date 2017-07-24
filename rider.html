@@ -15,28 +15,72 @@ var startRoad = 0;
 
 var carPosX = 0;
 var carPosY = 0;
-const CAR_WIDTH = 50;
-const CAR_HEIGHT = 80;
-
+var carWidth = 0;
+var carHeight = 0;
 var car;
 
 const LEFT_KEY = 37;
 const RIGHT_KEY = 39;
 
+const CAR_SPEED = 1; // Speed : low(1) to high(6)
+
+var obstacleWidth = 0;
+var obstacleHeight = 0;
+
+var obstacle1Create = false;
+var obstacle2Create = false;
+var obstacle3Create = false;
+
+var obstacle1X = 0;
+var obstacle1Y = 0;
+
+var obstacle2X = 0;
+var obstacle2Y = 0;
+
+var obstacle3X = 0;
+var obstacle3Y = 0;
+
+var score = 0;
+var showScoreScreen = false;
+
 window.onload = function(){
 	canvas = document.getElementById("gameCanvas");
 	canvasContext = canvas.getContext("2d");
 
-	var framesPerSecond = 30;
+	carWidth = canvas.width/8;
+	carHeight = canvas.height/10;
+	carPosX = canvas.width/4;
+	carPosY = 4*canvas.height/5;
+
+	obstacleWidth = canvas.width/8;
+	obstacleHeight = canvas.height/10;
+
+	initGame();
+
+	var framesPerSecond = 60;
 	car = new Image();
 	car.onload = function() {
 		setInterval(updateGame, 1000/framesPerSecond);
 	}
 	car.src = "images/car.png";
-	carPosX = canvas.width/4;
-	carPosY = 4*canvas.height/5;
 
 	canvas.addEventListener("keydown", handleKeyEvent);
+	canvas.addEventListener("mousedown", handleMouseClick);
+}
+
+function initGame() {
+	obstacle1Y = - obstacleHeight;
+	obstacle1X = Math.floor((Math.random() * (canvas.width/2 - obstacleWidth)) + 1);
+	obstacle1Create = false;
+
+	obstacle2Y = -canvas.height/3 - obstacleHeight;
+	obstacle2X = canvas.width/2 
+		+ Math.floor((Math.random() * (canvas.width/2 - obstacleWidth)) + 1);
+	obstacle2Create = false;
+
+	obstacle3Y = -2*canvas.height/3 - obstacleHeight;
+	obstacle3X = Math.floor((Math.random() * (canvas.width/2 - obstacleWidth)) + 1);
+	obstacle3Create = false;
 }
 
 function handleKeyEvent(evt) {
@@ -44,12 +88,12 @@ function handleKeyEvent(evt) {
 	switch(evt.keyCode) {
 		case LEFT_KEY:
 			if (carPosX > 0) {
-				carPosX -= CAR_WIDTH/8;
+				carPosX -= carWidth/8;
 			}
 			break;
 		case RIGHT_KEY:
-			if (carPosX < (canvas.width - CAR_WIDTH)) {
-				carPosX += CAR_WIDTH/8;
+			if (carPosX < (canvas.width - carWidth)) {
+				carPosX += carWidth/8;
 			}
 			break;
 		default:
@@ -57,12 +101,31 @@ function handleKeyEvent(evt) {
 	}
 }
 
+function handleMouseClick(evt) {
+	if (showScoreScreen) {
+		showScoreScreen = false;
+		score = 0;
+		initGame();
+	}
+}
+
 function updateGame() {
-	drawGame();
-	gameLogic();
+	if (showScoreScreen) {
+		drawScoreScreen();
+	} else {
+		drawGame();
+		gameLogic();
+	}
+}
+
+function drawScoreScreen() {
+	canvasContext.font="24px Arial";
+	colorRect(0, 0, canvas.width, canvas.height, "black");
+	colorText("Score : " + score, canvas.width/2 - 50, canvas.height/2, "white");
 }
 
 function drawGame() {
+	canvasContext.font="16px Arial";
 	// Draw canvas
 	colorRect(0, 0, canvas.width, canvas.height, "black");
 
@@ -70,15 +133,17 @@ function drawGame() {
 	drawRoad();
 
 	// Draw car
-	canvasContext.drawImage(car, carPosX, carPosY, CAR_WIDTH, CAR_HEIGHT);
-	
+	canvasContext.drawImage(car, carPosX, carPosY, carWidth, carHeight);
+
+	// Generate obstacles
+	generateObstacles();
 }
 
 function drawRoad() {
 	if (startRoad >= 40) {
 		startRoad = 0;
 	} else {
-		startRoad++;
+		startRoad += CAR_SPEED;
 	}
 
 	for (var i = startRoad - 40; i <= canvas.height; i+=40) {
@@ -86,8 +151,72 @@ function drawRoad() {
 	}
 }
 
-function gameLogic(){
+function generateObstacles() {
+	if (obstacle1Create) {
+		obstacle1Y = - obstacleHeight;
+		obstacle1X = Math.floor((Math.random() * (canvas.width/2 - obstacleWidth)) + 1);
+		obstacle1Create = false;
+	}
+	colorRect(obstacle1X, obstacle1Y, obstacleWidth, obstacleHeight, "yellow");
 
+	if (obstacle2Create) {
+		obstacle2Y = - obstacleHeight;
+		obstacle2X = canvas.width/2 
+		+ Math.floor((Math.random() * (canvas.width/2 - obstacleWidth)) + 1);
+		obstacle2Create = false;
+	}
+	colorRect(obstacle2X, obstacle2Y, obstacleWidth, obstacleHeight, "yellow");
+
+	if (obstacle3Create) {
+		obstacle3Y = - obstacleHeight;
+		var left = Math.floor((Math.random() * 2) + 1);
+		obstacle3X = left == 2 ? obstacle2X : obstacle1X;
+		obstacle3Create = false;
+	}
+	colorRect(obstacle3X, obstacle3Y, obstacleWidth, obstacleHeight, "yellow");
+}
+
+function gameLogic(){
+	if (obstacle1Y <= canvas.height) {
+		obstacle1Y += CAR_SPEED; 
+	} else {
+		obstacle1Create = true;
+		score++;
+	}
+
+	if (obstacle2Y <= canvas.height) {
+		obstacle2Y += CAR_SPEED;
+	} else {
+		obstacle2Create = true;
+		score++;
+	}
+
+	if (obstacle3Y <= canvas.height) {
+		obstacle3Y += CAR_SPEED;
+	} else {
+		obstacle3Create = true;
+		score++;
+	}
+
+	detectCollision();
+	colorText(""+score, carPosX+carWidth/2-5, carPosY+2*carHeight/3, "white");
+}
+
+function detectCollision() {
+	if ((obstacle1X + obstacleWidth > carPosX && obstacle1X < carPosX+carWidth)
+		&& (obstacle1Y + obstacleHeight > carPosY && obstacle1Y < carPosY+carHeight)) {
+		showScoreScreen = true;
+	}
+
+	if ((obstacle2X + obstacleWidth > carPosX && obstacle2X < carPosX+carWidth)
+		&& (obstacle2Y + obstacleHeight > carPosY && obstacle2Y < carPosY+carHeight)) {
+		showScoreScreen = true;
+	}
+
+	if ((obstacle3X + obstacleWidth > carPosX && obstacle3X < carPosX+carWidth)
+		&& (obstacle3Y + obstacleHeight > carPosY && obstacle3Y < carPosY+carHeight)) {
+		showScoreScreen = true;
+	}
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
@@ -95,6 +224,10 @@ function colorRect(leftX, topY, width, height, drawColor) {
 	canvasContext.fillRect(leftX, topY, width, height);
 }
 
+function colorText(text, leftX, topY, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillText(text, leftX, topY);
+}
 </script>
 </body>
 </html>
