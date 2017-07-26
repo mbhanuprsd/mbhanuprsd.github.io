@@ -1,21 +1,22 @@
 var canvas;
 var canvasContext;
 
-var blockHeight = 20;
-var blockWidth = 100;
-var blockPadding = 5;
+var blockHeight;
+var blockWidth;
+var blockPadding;
 
-var blocks = new Array();
+var blocks;
 
-var paddleX = 0;
-var paddleWidth = 100;
-var paddleHeight = 20;
+var paddleX;
+var paddleY;
+var paddleWidth;
+var paddleHeight;
 
-var ballPosX = 200;
-var ballPosY = 300;
-var ballRadius = 10;
-var ballSpeedX = -5;
-var ballSpeedY = -5;
+var ballPosX;
+var ballPosY;
+var ballRadius;
+var ballSpeedX;
+var ballSpeedY;
 
 var showGameOver = false;
 
@@ -31,7 +32,10 @@ function calculateMousePos(evt) {
 }
 
 window.onload = function() {
-	canvas = document.getElementById("gameCanvas");
+	canvas = document.getElementById("ballWallCanvas");
+	canvas.width = 9*window.innerWidth/10;
+	canvas.height = 9*window.innerHeight/10;
+
 	canvasContext = canvas.getContext("2d");
 
 	initGame();
@@ -57,32 +61,38 @@ function handleMouseMovement(evt) {
 function initGame() {
 	showGameOver = false;
 
-	blockWidth = canvas.width/10;
-	blockHeight = canvas.height/25;
+	blockWidth = canvas.width/15;
+	blockHeight = canvas.height/40;
+	blockPadding = canvas.width/150;
 
-	paddleWidth = canvas.width/6;
+	paddleWidth = canvas.width/8;
 	paddleHeight = canvas.width/80;
 	paddleX = canvas.width/2 - paddleWidth/2;
+	paddleY = canvas.height - paddleHeight - blockPadding;
 
-	ballPosX = canvas.width/2;
-	ballPosY = canvas.height/2;
+	ballPosX = paddleX;
+	ballPosY = paddleY - blockPadding;
 	ballRadius = canvas.width/60;
 
-	ballSpeedX = -5;
-	ballSpeedY = -5;
+	ballSpeedX = -canvas.height/100;
+	ballSpeedY = -canvas.height/100;
 
 	//Initialize blocks
 	blocks = new Array();
-	for (var i = 0; i <= 5; i++) {
-		var start = i*(canvas.width/10 + blockPadding) + blockPadding;
+	var blocksMaxY = 0;
+	var i = 0;
+	while (blocksMaxY < canvas.height/2) {
+		var start = i*(blockWidth + blockPadding) + blockPadding;
 		var end = canvas.width - start - blockPadding;
 		var blockXCoord = start;
 		var blockYCorod = i*(blockHeight + blockPadding) + blockPadding;
+		blocksMaxY = blockYCorod;
 		while (end > blockXCoord + blockWidth) {
 			var block = {leftX: blockXCoord, topY: blockYCorod};
 			blocks.push(block);
 			blockXCoord += (blockWidth + blockPadding);
 		}
+		i++;
 	}
 }
 
@@ -117,8 +127,7 @@ function drawGame() {
 	}
 
 	// Draw paddle
-	colorRect(paddleX, canvas.height - paddleHeight - blockPadding,
-		paddleWidth, paddleHeight, "white");
+	colorRect(paddleX, paddleY, paddleWidth, paddleHeight, "white");
 }
 
 function drawBrick(block) {
@@ -134,10 +143,10 @@ function gameLogic() {
 	setupTopBoundary();
 	setupBottomBoundary();
 
-	detectCollision();
+	detectCollisionAndRevert();
 }
 
-function detectCollision() {
+function detectCollisionAndRevert() {
 	for (var index = 0; index < blocks.length; index++) {
 		var block = blocks[index];
 		var blockLeftBoundary = ballPosX + ballRadius > block.leftX;
@@ -147,7 +156,14 @@ function detectCollision() {
 		if (blockLeftBoundary && blockRightBoundary
 			&& blockBottomBoundary && blockTopBoundary) {
 			blocks.remove(index);
-			ballSpeedY = -ballSpeedY;
+			if ((ballPosX >= block.leftX + blockWidth && ballSpeedX < 0)
+				|| (ballPosX <= block.leftX && ballSpeedX > 0)) {
+				ballSpeedX = -ballSpeedX;
+			}
+			if ((ballPosY <= block.topY && ballSpeedY > 0)
+				|| (ballPosY >= block.topY + blockHeight && ballSpeedY < 0)) {
+				ballSpeedY = -ballSpeedY;
+			}
 		}
 	}
 	if (blocks.length <= 0) {
