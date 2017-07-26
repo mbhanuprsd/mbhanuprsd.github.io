@@ -77,6 +77,10 @@ function initGame() {
 	ballSpeedX = -canvas.height/100;
 	ballSpeedY = -canvas.height/100;
 
+	initializeBlocks();
+}
+
+function initializeBlocks() {
 	//Initialize blocks
 	blocks = new Array();
 	var blocksMaxY = 0;
