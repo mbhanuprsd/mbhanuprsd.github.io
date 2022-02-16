@@ -1,0 +1,148 @@
+{
+  "main": {
+    "name": "Bhanu Prasad Merakanapalli",
+    "occupation": "Lead Research Engineer",
+    "description": "HLead Software Engineer with a demonstrated history of working in the information technology and services industry. Skilled in Unreal Engine, Android, Core Java, C#, Xamarin, and Unity3D",
+    "image": "profilepic.jpg",
+    "bio": "Software professional with 8 years of experience in programming/developing applications for Mobile and gaming domains. Have good exposure on Software Development Life Cycle (SDLC). Proficient in C#, Unreal Engine, Unity3d and Android application development. Have knowledge of ReactJS, Python and Flutter. Excellent communication and team management skills.",
+    "contactmessage": "Here is where you should write your message to readers to have them get in contact with you.",
+    "email": "mbhanuprsd@gmail.com",
+    "phone": "+918897660050",
+    "address": {
+      "street": "Serilingampally",
+      "city": "Hyderabad",
+      "state": "Telangana, India",
+      "zip": "500019"
+    },
+    "website": "https://www.linkedin.com/in/mbhanuprasad/",
+    "resumedownload": "https://drive.google.com/file/d/1kpkWewaQPuJ7HF7UtpUEK4B6CmgWqkGa/view?usp=sharing",
+    "social": [
+      {
+        "name": "facebook",
+        "url": "https://www.facebook.com/bhanuprasad",
+        "className": "fa fa-facebook"
+      },
+      {
+        "name": "twitter",
+        "url": "https://twitter.com/mbhanuprasad",
+        "className": "fa fa-twitter"
+      },
+      {
+        "name": "linkedin",
+        "url": "https://www.linkedin.com/in/mbhanuprasad/",
+        "className": "fa fa-linkedin"
+      },
+      {
+        "name": "instagram",
+        "url": "https://www.instagram.com/mbhanuprasad/",
+        "className": "fa fa-instagram"
+      },
+      {
+        "name": "github",
+        "url": "https://github.com/mbhanuprsd",
+        "className": "fa fa-github"
+      }
+    ]
+  },
+  "resume": {
+    "skillmessage": "Game/Mobile app developer with primary skills in Unreal Engine & Android",
+    "education": [
+      {
+        "school": "University of South Wales, United Kingdom",
+        "degree": "Post Graduate Diploma in Computer Games Development",
+        "graduated": "June 2014",
+        "description": "Learnt Computer Graphics, C++, Artifical Intelligence and Project Management."
+      },
+      {
+        "school": "National Institute of Technology Warangal, India",
+        "degree": "Bachelor of Technology in Electrical and Electronics Engineering",
+        "graduated": "April 2010",
+        "description": ""
+      }
+    ],
+    "work": [
+      {
+        "company": "Hyundai Mobis",
+        "title": "Lead Research Engineer",
+        "years": "March 2019 - Present",
+        "description": "Responsible for developing simulations for vehicle scenarios using Unreal Engine, ReactJS and Python technologies. Also task and process management with team members."
+      },
+      {
+        "company": "Purpletalk India Pvt Ltd",
+        "title": "Software Analyst",
+        "years": "August 2015 - March 2019",
+        "description": "Developing Android applications using Native and Xamarin platforms. Also developed AR/VR POCs using Unity3D."
+      }
+      ,
+      {
+        "company": "PB Systems (Ebix)",
+        "title": "Software Programmer",
+        "years": "May 2014 - June 2015",
+        "description": "Support and implement new features for Medical application in Android/iOS platform."
+      }
+      ,
+      {
+        "company": "Arctern Consulting Pvt Ltd",
+        "title": "Trainee Game Tester",
+        "years": "June 2010 - February 2011",
+        "description": "Manual Testing of video games on PS3, XBox, Wii and PC platforms. Tested games like Bulletstorm, EA Create, Crysis2."
+      }
+    ],
+    "skills": [
+      {
+        "name": "Unreal Engine",
+        "level": "70%"
+      },
+      {
+        "name": "Android",
+        "level": "80%"
+      },
+      {
+        "name": "Core Java",
+        "level": "80%"
+      },
+      {
+        "name": "C#",
+        "level": "70%"
+      },
+      {
+        "name": "C++",
+        "level": "60%"
+      },
+      {
+        "name": "Unity3D",
+        "level": "50%"
+      },
+      {
+        "name": "ReactJS",
+        "level": "50%"
+      },
+      {
+        "name": "Python",
+        "level": "50%"
+      },
+      {
+        "name": "Git",
+        "level": "70%"
+      }
+    ]
+  },
+  "portfolio": {
+    "projects": [
+      {
+        "title": "THIM - Sleep Ring",
+        "category": "My Travel Blog for my post-university travels",
+        "image": "thim.jfif",
+        "url": "https://play.google.com/store/apps/details?id=com.retime.thim&hl=en_US&gl=US"
+      }
+    ]
+  },
+  "testimonials": {
+    "testimonials": [
+      {
+        "text": "-",
+        "user": ""
+      }
+    ]
+  }
+}
