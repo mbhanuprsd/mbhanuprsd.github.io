@@ -1,21 +1,21 @@
 {
   "main": {
     "name": "Bhanu Prasad Merakanapalli",
-    "occupation": "Lead Research Engineer",
-    "description": "Lead Software Engineer with a demonstrated history of working in the information technology and services industry. Skilled in Unreal Engine, Android, Core Java, C#, Xamarin, and Unity3D",
+    "occupation": "LSoftware Engineer",
+    "description": "Senior Software Engineer with a demonstrated history of working in the information technology and services industry. Skilled in Unreal Engine, Android, Core Java, C#, Xamarin, and Unity3D",
     "image": "profilepic.jpg",
     "bio": "Software professional with 8 years of experience in programming/developing applications for Mobile and gaming domains. Have good exposure on Software Development Life Cycle (SDLC). Proficient in C#, Unreal Engine, Unity3d and Android application development. Have knowledge of ReactJS, Python and Flutter. Excellent communication and team management skills.",
     "contactmessage": "Here is where you should write your message to readers to have them get in contact with you.",
     "email": "mbhanuprsd@gmail.com",
-    "phone": "+918897660050",
+    "phone": "+918897660050, +46761520899",
     "address": {
-      "street": "Serilingampally",
-      "city": "Hyderabad",
-      "state": "Telangana, India",
-      "zip": "500019"
+      "street": "Evenemangsgatan",
+      "city": "Solna",
+      "state": "Stockholm, Sweden",
+      "zip": "16956"
     },
     "website": "https://www.linkedin.com/in/mbhanuprasad/",
-    "resumedownload": "https://drive.google.com/file/d/1kpkWewaQPuJ7HF7UtpUEK4B6CmgWqkGa/view?usp=sharing",
+    "resumedownload": "https://drive.google.com/file/d/1B-eE2ic5wTjtJdO6qUyD2glA41TltPtI/view?usp=sharing",
     "social": [
       {
         "name": "facebook",
@@ -62,9 +62,21 @@
     ],
     "work": [
       {
+        "company": "Competition Company",
+        "title": "Vehicle Dynamics Engineer",
+        "years": "April 2023 - Present",
+        "description": "Responsible for developing realistic physics for the e-Racing title Rennsport."
+      },
+      {
+        "company": "Electronic Arts",
+        "title": "Software Engineer II",
+        "years": "August 2022 - February 2023",
+        "description": "Responsible for developing tools for test automation using .Net framework and Python. Worked on The Sims 4 title."
+      },
+      {
         "company": "Hyundai Mobis",
         "title": "Lead Research Engineer",
-        "years": "March 2019 - Present",
+        "years": "March 2019 - August 2022",
         "description": "Responsible for developing simulations for vehicle scenarios using Unreal Engine, ReactJS and Python technologies. Also task and process management with team members."
       },
       {
@@ -130,8 +142,20 @@
   "portfolio": {
     "projects": [
       {
+        "title": "Rennsport",
+        "category": "Vehicle Dynamics Engineer",
+        "image": "rennsport.jpg",
+        "url": "https://www.rennsport.gg/"
+      },
+      {
+        "title": "The Sims 4",
+        "category": "Tool development for test automation",
+        "image": "thesims4.webp",
+        "url": "https://www.ea.com/games/the-sims/the-sims-4"
+      },
+      {
         "title": "THIM - Sleep Ring",
-        "category": "My Travel Blog for my post-university travels",
+        "category": "Android application",
         "image": "thim.jfif",
         "url": "https://play.google.com/store/apps/details?id=com.retime.thim&hl=en_US&gl=US"
       }
